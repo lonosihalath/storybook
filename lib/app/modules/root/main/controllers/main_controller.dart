@@ -3,6 +3,7 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:storybook/app/modules/root/main/controllers/delivery_controller/delivery_controller.dart';
 import 'package:storybook/app/modules/root/main/controllers/home_controller/home_controller.dart';
+import 'package:storybook/app/modules/root/main/controllers/payment_controller/payment_controller.dart';
 import 'package:storybook/app/modules/root/main/controllers/shopping_cart_controller/shopping_cart_controller.dart';
 import 'package:storybook/app/modules/root/main/pages/home_page.dart';
 import 'package:storybook/app/modules/root/main/pages/search_page.dart';
@@ -16,6 +17,7 @@ class MainController extends GetxController {
     Get.put(HomeController());
     Get.put(ShoppingCartController());
     Get.put(DeliveryController());
+    Get.put(PaymentController());
   }
 
   final count = 0.obs;

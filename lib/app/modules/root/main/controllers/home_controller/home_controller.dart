@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/get.dart';
 import 'package:storybook/app/config/localStore/dataStorage.dart';
 import 'package:storybook/app/modules/root/main/services/main_imp.dart';

@@ -7,6 +7,7 @@ import 'package:storybook/app/config/constants/app_fonts.dart';
 import 'package:storybook/app/config/constants/app_text_styles.dart';
 import 'package:storybook/app/modules/root/main/controllers/delivery_controller/delivery_controller.dart';
 import 'package:storybook/app/modules/root/main/pages/add_delivery_page.dart';
+import 'package:storybook/app/modules/root/main/pages/payment_page.dart';
 
 import '../../../../config/constants/app_colors.dart';
 
@@ -20,6 +21,7 @@ class DeliveryPageView extends GetView<DeliveryController> {
           controller.getDelivery();
         },
         builder: (controller) => Scaffold(
+              backgroundColor: AppColors.kBackground,
               bottomNavigationBar: SizedBox(
                 height: 80,
                 width: context.width,
@@ -37,7 +39,9 @@ class DeliveryPageView extends GetView<DeliveryController> {
                                       borderRadius: BorderRadius.circular(20)),
                                   backgroundColor: AppColors.kPrimaryColor),
                               onPressed: () {
-                                if (controller.selectDelivery.value == null) {}
+                                if (controller.selectDelivery.value != null) {
+                                  Get.to(() => const PayMentPageView());
+                                }
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -74,13 +78,37 @@ class DeliveryPageView extends GetView<DeliveryController> {
                       const SizedBox(height: 20),
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Choose delivery',
-                          style: AppTextStyles.textSize18(
-                              context: context, isBold: false),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Choose delivery',
+                              style: AppTextStyles.textSize18(
+                                  context: context, isBold: false),
+                            ),
+                            TextButton(
+                                onPressed: () =>
+                                    Get.to(() => const AddDeliveryPageView()),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.add,
+                                      color: AppColors.kPrimaryColor,
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      'Add delivery',
+                                      style: AppTextStyles.textSize15(
+                                              context: context, isBold: true)
+                                          .copyWith(
+                                              color: AppColors.kPrimaryColor),
+                                    )
+                                  ],
+                                ))
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 5),
                       controller.isLoading.isFalse
                           ? controller
                                   .listDelivery.value.deliveryDetail!.isEmpty
@@ -137,35 +165,38 @@ class DeliveryPageView extends GetView<DeliveryController> {
                                   ),
                                 )
                               : Column(
-                                  children:
-                                      controller
-                                          .listDelivery.value.deliveryDetail!
-                                          .map((e) => Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () => controller
-                                                        .selectDeliveryItem(
-                                                            value: e),
+                                  children: controller
+                                      .listDelivery.value.deliveryDetail!
+                                      .map((e) => Container(
+                                            margin: const EdgeInsets.only(
+                                                bottom: 15),
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () => controller
+                                                      .selectDeliveryItem(
+                                                          value: e),
+                                                  child: Card(
+                                                    color: AppColors.kLigth,
+                                                    margin:
+                                                        const EdgeInsetsDirectional
+                                                            .all(0),
+                                                    elevation: .5,
+                                                    surfaceTintColor:
+                                                        AppColors.kLigth,
                                                     child: Container(
                                                       padding:
                                                           const EdgeInsets.only(
                                                               left: 10,
                                                               top: 8,
                                                               bottom: 5),
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              bottom: 15),
                                                       width: context.width,
                                                       height: 110,
                                                       decoration: BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(15),
-                                                        border: Border.all(
-                                                            width: .5,
-                                                            color: AppColors
-                                                                .kPrimaryColor),
                                                       ),
                                                       child: Column(
                                                         crossAxisAlignment:
@@ -278,14 +309,17 @@ class DeliveryPageView extends GetView<DeliveryController> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Positioned(
-                                                    right: 15,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 8),
-                                                      child: Transform.scale(
-                                                        scale: 1.3,
+                                                ),
+                                                Positioned(
+                                                  right: 20,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            bottom: 0),
+                                                    child: Transform.scale(
+                                                      scale: 1.3,
+                                                      child: SizedBox(
+                                                        width: 20,
                                                         child: Radio(
                                                             activeColor: AppColors
                                                                 .kPrimaryColor,
@@ -302,10 +336,12 @@ class DeliveryPageView extends GetView<DeliveryController> {
                                                             }),
                                                       ),
                                                     ),
-                                                  )
-                                                ],
-                                              ))
-                                          .toList(),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ))
+                                      .toList(),
                                 )
                           : Container(
                               padding: const EdgeInsets.only(top: 60),

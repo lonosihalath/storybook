@@ -37,6 +37,7 @@ class DeliveryController extends GetxController {
                 delProvince: provinController.text,
                 delPhone: phoneController.text));
         if (result) {
+          await getDelivery();
           closePage();
           villageController.clear();
           disterictController.clear();
@@ -52,7 +53,7 @@ class DeliveryController extends GetxController {
     }
   }
 
-  void getDelivery() async {
+  Future getDelivery() async {
     try {
       isLoading.value = true;
       var result = await mainRepo.getDelivery();
@@ -67,7 +68,7 @@ class DeliveryController extends GetxController {
     } catch (e) {
       Get.snackbar('Sorry', 'No Delivery Found');
     } finally {
-      Future.delayed(const Duration(seconds: 1), () {
+      Future.delayed(const Duration(milliseconds: 200), () {
         isLoading.value = false;
         update();
       });
@@ -86,7 +87,6 @@ class DeliveryController extends GetxController {
   }
 
   void closePage() {
-    getDelivery();
     List.generate(2, (index) => Get.back());
   }
 }

@@ -45,5 +45,15 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- permissions -->
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>Allow this app to access your photos for update profile</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Allow this app to access your photos for update profile</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Please grant microphone access</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This app needs to be able to access your motion use</string>
+    <!-- end permissions -->
 </dict>
 </plist>

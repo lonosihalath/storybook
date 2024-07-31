@@ -62,7 +62,7 @@ app.*.map.json
 /ios/config/prod/GoogleService-Info.plist
 
 # /ios
-/env/
+# /env/
 /macos/
 /web/
 /windows/

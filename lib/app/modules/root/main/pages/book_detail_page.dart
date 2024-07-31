@@ -6,7 +6,7 @@ import 'package:storybook/app/config/constants/app_colors.dart';
 import 'package:storybook/app/config/constants/app_fonts.dart';
 import 'package:storybook/app/config/constants/app_text_styles.dart';
 import 'package:storybook/app/config/util/image_widget.dart';
-import 'package:storybook/app/modules/root/main/pages/delivery_page.dart';
+import 'package:storybook/app/modules/root/main/pages/shopping_cart.dart';
 
 import '../controllers/shopping_cart_controller/shopping_cart_controller.dart';
 
@@ -41,7 +41,7 @@ class BookDetailPageView extends GetView<ShoppingCartController> {
                                                 BorderRadius.circular(20)),
                                         backgroundColor:
                                             AppColors.kPrimaryColor),
-                                    onPressed: () {},
+                                    onPressed: () => controller.addCartData(),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -57,45 +57,12 @@ class BookDetailPageView extends GetView<ShoppingCartController> {
                                                     color: AppColors.kLigth)),
                                       ],
                                     )))),
-                        const SizedBox(width: 15),
-                        Expanded(
-                            child: SizedBox(
-                                height: 55,
-                                width: context.width,
-                                child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20)),
-                                        backgroundColor:
-                                            AppColors.kPrimaryColor),
-                                    onPressed: () {
-                                      Get.to(() => const DeliveryPageView());
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.payment_rounded,
-                                            color: AppColors.kLigth),
-                                        const SizedBox(width: 7),
-                                        Text('Buy now',
-                                            style: AppTextStyles.textSize18(
-                                                    context: context,
-                                                    isBold: true)
-                                                .copyWith(
-                                                    color: AppColors.kLigth)),
-                                      ],
-                                    )))),
                       ],
                     )
                   ],
                 ),
               ),
               backgroundColor: AppColors.kLigth,
-
-              //   appBar: appbarApp(title: 'Book Detail'),
               body: Stack(
                 children: [
                   Column(
@@ -131,14 +98,31 @@ class BookDetailPageView extends GetView<ShoppingCartController> {
                     top: 60,
                     right: 20,
                     child: GestureDetector(
-                      onTap: () => Get.back(),
-                      child: CircleAvatar(
-                        radius: 23,
-                        backgroundColor: AppColors.kPrimaryColor,
-                        child: SvgPicture.asset(
-                          AppAssets.shoppingCart,
-                          color: AppColors.kLigth,
-                        ),
+                      onTap: () => Get.to(() => const ShoppingCartView()),
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 23,
+                            backgroundColor: AppColors.kPrimaryColor,
+                            child: SvgPicture.asset(
+                              AppAssets.shoppingCart,
+                              color: AppColors.kLigth,
+                            ),
+                          ),
+                          controller.addCart.isNotEmpty
+                              ? Positioned(
+                                  right: 0,
+                                  child: CircleAvatar(
+                                      radius: 10,
+                                      backgroundColor: Colors.red,
+                                      child: Text(
+                                        controller.addCart.length.toString(),
+                                        style: AppTextStyles.textSize12(
+                                                context: context, isBold: false)
+                                            .copyWith(color: AppColors.kLigth),
+                                      )))
+                              : const SizedBox()
+                        ],
                       ),
                     ),
                   ),
